@@ -1,9 +1,9 @@
-<script setup lang="ts"></script>
-
 <template>
   <div>
-    <RouterView />
+    <h1>Models</h1>
   </div>
 </template>
+
+<script setup lang="ts"></script>
 
 <style scoped></style>

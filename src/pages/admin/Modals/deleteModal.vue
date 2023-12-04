@@ -56,6 +56,8 @@
       await props.modal_value.deleteBrand(id.value);
     } else if (props.customKey == "model") {
       await props.modal_value.deleteModel(id.value);
+    } else if(props.customKey == "sale") {
+      await props.modal_value.deleteSale(id.value)
     }
     loading.value = false;
     location.reload();

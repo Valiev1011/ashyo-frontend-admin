@@ -99,7 +99,7 @@ export interface IProductModel {
   index?: number;
   model_name: string;
   category_brand_id: number;
-  category_brand: CategoryBrand;
+  category_brand?: CategoryBrand;
   sale?: ISale;
 }
 
@@ -127,4 +127,15 @@ export interface IModelAttribute {
   attribute: {
     name: string;
   };
+}
+
+export interface ISale {
+  id: number;
+  index?: number;
+  model_id: number;
+  sale_start_date: string;
+  sale_end_date: string;
+  sale_status: string;
+  sale_percentage: string;
+  model: IProductModel;
 }

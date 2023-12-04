@@ -7,12 +7,14 @@ import App from "./App.vue";
 import router from "./router";
 import veeValidatePlugins from "./plugins/vee-validate";
 import VueTheMask from "vue-the-mask";
+import ElementPlus from "element-plus";
+import "element-plus/dist/index.css";
 
 const app = createApp(App);
 
 app.use(createPinia());
 app.use(router);
-app.use(VueTheMask);
+app.use(ElementPlus);
 app.use(veeValidatePlugins);
 
 app.mount("#app");

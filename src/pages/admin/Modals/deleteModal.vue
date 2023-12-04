@@ -11,10 +11,10 @@
       <div class="flex w-[80%] gap-5 ml-[45%] mt-5">
         <VButton
           btn_type="success"
-          :is-loading="false"
+          :is-loading="loading"
           class="w-[20%] text-[17px] uppercase"
           @click="yes"
-          >yes</VButton
+          >{{ loading ? "Loading" : "Yes" }}</VButton
         >
         <VButton
           btn_type="danger"
@@ -43,17 +43,22 @@
   }
 
   const props = defineProps<IProps>();
-
+  const loading = ref(false);
   const dialog = ref(false);
   const id = ref(0);
   const yes = async () => {
-    console.log(props.customKey);
+    loading.value = true;
     if (props.customKey == "category") {
       await props.modal_value.deleteCategory(id.value);
     } else if (props.customKey == "product") {
       await props.modal_value.deleteProduct(id.value);
+    } else if (props.customKey == "brand") {
+      await props.modal_value.deleteBrand(id.value);
+    } else if (props.customKey == "model") {
+      await props.modal_value.deleteModel(id.value);
     }
-    // location.reload();
+    loading.value = false;
+    location.reload();
   };
 
   const openModal = (value: any) => {

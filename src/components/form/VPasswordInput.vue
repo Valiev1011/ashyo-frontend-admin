@@ -11,6 +11,7 @@
         class="w-[89%] p-[15px] text-[21px] outline-none rounded-s-lg bg-[white]"
       />
       <button
+        type="button"
         class="w-[10%] bg-[white] text-[23px] rounded-e-lg py-[18px] flex justify-center items-center"
         @click="changeType"
       >

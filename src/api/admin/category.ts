@@ -1,9 +1,13 @@
-import type { AxiosResponse } from "axios";
 import axiosClient from "../apiClient";
-import type { IAttribute, IBrand, ICategory, IModel } from "@/types/adminTypes";
+import type {
+  IAttribute,
+  IBrand,
+  ICategory,
+  IProductModel,
+} from "@/types/adminTypes";
 
 const categoryApi = {
-  getAllCategory(): Promise<AxiosResponse<{ categories: ICategory[] }>> {
+  getAllCategory(): Promise<ICategory[]> {
     const url = "/category/get-all";
     return axiosClient.get(url);
   },
@@ -11,6 +15,11 @@ const categoryApi = {
   addCategory(payload: ICategory) {
     const url = "/category/create";
     return axiosClient.post(url, payload);
+  },
+
+  getCategoryById(id: number) {
+    const url = `/category/get/${id}`;
+    return axiosClient.get(url);
   },
 
   deleteCategory(id: number) {
@@ -23,7 +32,7 @@ const categoryApi = {
     return axiosClient.post(url, payload);
   },
 
-  getModels(payload: any): Promise<IModel[]> {
+  getModels(payload: any): Promise<IProductModel[]> {
     const url = "product-model/get/by-category-brand";
     return axiosClient.post(url, payload);
   },

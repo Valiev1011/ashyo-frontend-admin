@@ -20,13 +20,15 @@
 
       <template #body_action="{ item }">
         <div class="flex gap-1">
-          <VButton btn_type="success" :is-loading="false">Edit</VButton>
+          <VButton :isLoading="false" btn_type="success"
+            ><SvgIcon type="mdi" :path="mdiPencilOutline"
+          /></VButton>
           <VButton
+            :isLoading="false"
             btn_type="danger"
-            :is-loading="false"
-            @click="openDeleteModal(item)"
-            >Delete</VButton
-          >
+            @click="openDeleteModal(item.id)"
+            ><SvgIcon type="mdi" :path="mdiDeleteOutline"
+          /></VButton>
         </div>
       </template>
     </Table>
@@ -41,12 +43,15 @@
   import addCategoryVue from "./Modals/addCategory.vue";
   import DeleteModal from "./Modals/deleteModal.vue";
   import type { ICategory } from "@/types/adminTypes";
+  // @ts-ignore
+  import SvgIcon from "@jamescoyle/vue-icon";
+  import { mdiPencilOutline, mdiDeleteOutline } from "@mdi/js";
 
   const store = useCategoryStore();
   const category_modal = ref();
   const delete_modal = ref();
   const headers = ref([
-    { title: "Id", value: "id" },
+    { title: "№", value: "index" },
     { title: "Name", value: "category_name" },
     { title: "Parent category", value: "parent_category_id" },
     { title: "Position", value: "position" },

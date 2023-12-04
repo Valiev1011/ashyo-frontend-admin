@@ -8,7 +8,7 @@
           </td>
         </tr>
       </thead>
-      <tbody class="bg-[#F6FBFF]">
+      <tbody class="bg-[#F6FBFF]" v-if="body.length > 0">
         <tr
           v-for="(item, index) in body"
           :key="index"
@@ -34,6 +34,9 @@
           </td>
         </tr>
       </tbody>
+      <div class="w-[100%] text-center text-[20px] text-global1 mt-10" v-else>
+        <h2>No data</h2>
+      </div>
     </table>
   </div>
 </template>

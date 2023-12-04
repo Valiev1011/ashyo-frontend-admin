@@ -35,5 +35,22 @@ export default {
       },
       component: () => import("../pages/admin/Models.vue"),
     },
+    {
+      path: "model/create",
+      name: "create_model",
+      meta: {
+        child: "models",
+      },
+      component: () => import("../pages/admin/Modals/addModel.vue"),
+    },
+    {
+      path: "sales",
+      name: "sales",
+      meta: {
+        child: "sales",
+      },
+      // @ts-ignore
+      component: () => import("@/pages/admin/Sales.vue"),
+    },
   ],
 };

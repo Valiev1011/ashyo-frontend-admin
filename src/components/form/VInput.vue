@@ -1,20 +1,11 @@
 <template>
-  <div class="w-full flex flex-col">
+  <div class="flex flex-col">
     <label :for="name" class="text-[20px] font-normal">{{ label }}</label>
     <vee-field
-      v-if="mask"
-      :type="type"
-      :name="name"
-      v-mask="mask"
-      :placeholder="placeholder"
-      class="w-[100%] p-[15px] text-[21px] outline-none border rounded-lg bg-[white] mt-[7px]"
-    />
-    <vee-field
-      v-else
       :type="type"
       :name="name"
       :placeholder="placeholder"
-      class="w-[100%] p-[15px] text-[21px] outline-none border rounded-lg bg-[white] mt-[7px]"
+      class="w-[100%] p-[8px] text-[21px] outline-none border rounded-lg bg-[white] mt-[7px]"
     />
     <ErrorMessage
       :name="name"
@@ -49,9 +40,5 @@
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
-  }
-
-  input[type="number"] {
-    -moz-appearance: textfield;
   }
 </style>

@@ -14,9 +14,9 @@
         </option>
       </select>
 
-      <VButton btn_type="success" class="mt-5" :is-loading="false"
-        >Create</VButton
-      >
+      <VButton btn_type="success" class="mt-5 w-full" :is-loading="loading">{{
+        loading ? "Loading" : "Create"
+      }}</VButton>
     </vee-form>
   </AppModal>
 </template>
@@ -27,9 +27,18 @@
   //@ts-ignore
   import AppModal from "@/components/ui/app-modal.vue";
   import { useCategoryStore } from "@/stores/admin/category";
-  import { computed, ref } from "vue";
+  import { computed, ref, watch } from "vue";
 
   const dialog = ref(false);
+  watch(dialog, (value) => {
+    if (!value) {
+      form.value = {
+        name: "",
+        position: null,
+      };
+    }
+  });
+  const loading = ref(false);
   const store = useCategoryStore();
   const options = ref();
   const form = ref({
@@ -40,12 +49,13 @@
 
   const schema = computed(() => {
     return {
-      name: "required|min:3|max:30",
+      name: "required|min:3|max:32",
       position: "required|max:2",
     };
   });
 
   const send = async (values: any) => {
+    loading.value = true;
     if (parent_category_id.value) {
       await store.addCategory({
         category_name: values.name,
@@ -58,6 +68,7 @@
         position: values.position,
       });
     }
+    loading.value = false;
     location.reload();
   };
 

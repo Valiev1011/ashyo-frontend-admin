@@ -1,4 +1,5 @@
 export interface IProduct {
+  index?: number;
   id: number;
   name: string;
   category_id: number;
@@ -56,6 +57,7 @@ export interface IProduct {
 
 export interface ICategory {
   id?: number;
+  index?: number;
   category_name: string;
   parent_category_id?: number | null;
   position: number;
@@ -63,16 +65,11 @@ export interface ICategory {
 
 export interface IBrand {
   id: number;
+  index?: number;
   brand_name: string;
   brand_description: string;
   position: number;
   image: string;
-}
-
-export interface IModel {
-  id: number;
-  model_name: string;
-  category_brand_id: number;
 }
 
 export interface IAttribute {
@@ -80,4 +77,54 @@ export interface IAttribute {
   name: string;
   attribute_group_id: number;
   is_changable: boolean;
+}
+
+export interface CategoryBrand {
+  id: number;
+  brand_id: number;
+  category_id: number;
+}
+
+export interface ISale {
+  id: number;
+  model_id: number;
+  sale_start_date: string;
+  sale_end_date: string;
+  sale_status: string;
+  sale_percentage: string;
+}
+
+export interface IProductModel {
+  id: number;
+  index?: number;
+  model_name: string;
+  category_brand_id: number;
+  category_brand: CategoryBrand;
+  sale?: ISale;
+}
+
+export interface IAttributeGroup {
+  id: number;
+  name: string;
+  category_id: number;
+  position: number;
+}
+
+export interface IAttribute {
+  id: number;
+  name: string;
+  attribute_group_id: number;
+  is_changable: boolean;
+  attributeGroup: IAttributeGroup;
+}
+
+export interface IModelAttribute {
+  id: number;
+  model_id: number;
+  attribute_id: number;
+  attribute_value: string[];
+  is_changable: boolean;
+  attribute: {
+    name: string;
+  };
 }

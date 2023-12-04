@@ -79,28 +79,71 @@
             </option>
           </select>
         </div>
+
+        <!-- Price -->
+        <div
+          class="flex gap-5 justify-between w-[100%] items-center"
+          v-if="form.brand_id"
+        >
+          <h1 class="text-[20px] font-normal">Price:</h1>
+          <input
+            type="number"
+            v-model="form.price"
+            class="w-[70%] p-[5px] text-[18px] outline-none border rounded-lg bg-[white] mt-[7px]"
+          />
+        </div>
+
+        <!-- Quantity -->
+        <div
+          class="flex gap-5 justify-between w-[100%] items-center"
+          v-if="form.brand_id"
+        >
+          <h1 class="text-[20px] font-normal">Quantity:</h1>
+          <input
+            type="number"
+            v-model="form.quantity"
+            class="w-[70%] p-[5px] text-[18px] outline-none border rounded-lg bg-[white] mt-[7px]"
+          />
+        </div>
+
         <!-- Attributes -->
         <div class="flex gap-5 w-[100%] flex-col" v-if="form.model_id">
           <h1 class="text-[20px] font-normal">Attributes:</h1>
-          <div class="flex gap-5 text-[18px] flex-wrap ml-10">
+          <div class="flex gap-5 text-[18px] flex-col flex-wrap ml-10">
             <div
-              v-for="(item, index) in category_store.attributes"
+              v-for="(item, index) in product_store.model_attributes"
               :key="index"
-              class="flex items-center gap-5"
+              class="flex flex-col gap-5"
             >
-              <h1>{{ item.name }}:</h1>
-              <vee-field
-                type="text"
-                :name="item.name"
-                class="w-[100%] p-[5px] text-[18px] border outline-none rounded-lg bg-[white]"
-              />
-              <ErrorMessage
-                :name="item.name"
-                class="text-error_color mt-2 text-[20px] font-medium"
-              />
+              <div class="flex flex-row items-center gap-5">
+                <h1 class="w-[8%]">{{ item.attribute.name }}:</h1>
+                <select
+                  v-model="attributes[item.attribute_id]"
+                  class="w-[50%] p-[5px] text-[18px] outline-none border rounded-lg bg-[white] mt-[7px]"
+                  @change="getModel"
+                >
+                  <option
+                    v-for="(item2, index2) in product_store?.model_attributes[
+                      index
+                    ].attribute_value"
+                    :key="index2"
+                    :value="item2"
+                  >
+                    {{ item2 }}
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
         </div>
+        <VButton
+          @click="send"
+          type="button"
+          v-if="form.model_id"
+          btn_type="primary"
+          :is-loading="loading"
+          >{{ loading ? "Loading" : "Create" }}</VButton
+        >
       </div>
     </vee-form>
   </AppModal>
@@ -109,9 +152,10 @@
 <script setup lang="ts">
   //@ts-ignore
   import AppModal from "@/components/ui/app-modal.vue";
-  import { computed, onMounted, ref, watch } from "vue";
+  import { onMounted, ref, watch } from "vue";
   import { useCategoryStore } from "@/stores/admin/category";
-  import VInput from "@/components/form/VInput.vue";
+  import { useAdminStore } from "@/stores/admin/products";
+  import VButton from "@/components/form/VButton.vue";
 
   const options = ref();
   const sub_options = ref();
@@ -125,10 +169,14 @@
     quantity: null,
   });
 
+  const loading = ref(false);
+
+  const attributes = ref<Record<number, string>>({});
+
   const dialog = ref(false);
 
-  computed(() => {
-    if (!dialog) {
+  watch(dialog, (value) => {
+    if (!value) {
       form.value = {
         category_id: null,
         brand_id: null,
@@ -140,6 +188,7 @@
   });
 
   const category_store = useCategoryStore();
+  const product_store = useAdminStore();
 
   const openModal = async () => {
     dialog.value = true;
@@ -151,6 +200,16 @@
         return false;
       }
     });
+  };
+
+  const send = async () => {
+    loading.value = true;
+    await product_store.addProduct({
+      ...form.value,
+      product_info: attributes.value,
+    });
+    loading.value = false;
+    location.reload();
   };
 
   const getCategory = () => {
@@ -177,16 +236,7 @@
   };
 
   const getModel = async () => {
-    // console.log(
-    //   form.value.model_id,
-    //   form.value.category_id,
-    //   form.value.brand_id
-    // );
-    await category_store.getAttributes({
-      model_id: form.value.model_id,
-      category_id: form.value.category_id,
-      brand_id: form.value.brand_id,
-    });
+    await product_store.getAttributes({ model_id: form.value.model_id });
   };
 
   onMounted(async () => {});
@@ -194,4 +244,10 @@
   defineExpose({ openModal });
 </script>
 
-<style scoped></style>
+<style scoped>
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+</style>

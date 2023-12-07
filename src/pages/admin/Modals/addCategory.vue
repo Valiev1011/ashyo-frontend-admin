@@ -49,7 +49,7 @@
 
   const schema = computed(() => {
     return {
-      name: "required|min:3|max:32",
+      name: "required|min:2|max:32",
       position: "required|max:2",
     };
   });

@@ -43,18 +43,4 @@ export const AdminMenu = [
     keys: "sales",
     icon: mdiSaleOutline,
   },
-  {
-    path: "/admin/ads",
-    label: "Ads",
-    name: "ads",
-    keys: "ads",
-    icon: mdiAdvertisements,
-  },
-  {
-    path: "/admin/profile",
-    label: "Profile",
-    name: "profile",
-    keys: "profile",
-    icon: mdiCogOutline,
-  },
 ];

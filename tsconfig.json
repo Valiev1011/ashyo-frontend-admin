@@ -7,5 +7,17 @@
     {
       "path": "./tsconfig.app.json"
     }
-  ]
+  ],
+  // "compilerOptions": {
+  //   "module": "es2020",
+  //   "moduleResolution": "node",
+  //   "target": "es5",
+  //   "sourceMap": true,
+  //   "allowJs": true,
+  //   "baseUrl": ".",
+  //   "paths": {
+  //     "components/*": ["src/*"]
+  //   }
+  // },
+  // "include": ["./src/**/*"]
 }

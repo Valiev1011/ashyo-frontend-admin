@@ -1,6 +1,17 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
+  "include": ["src/**/*", "env.d.ts", "src/**/*.vue"],
+  "files": [
+    // "src/pages/admin/Admin.vue",
+    // "src/pages/admin/Products.vue",
+    // "src/pages/admin/Category.vue",
+    // "src/pages/admin/Brands.vue",
+    // "src/pages/admin/Models.vue",
+    // "src/pages/404/NotFound.vue",
+    // "src/pages/auth/Auth.vue",
+    // "src/components/ui/app-modal.vue"
+    // other files
+  ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
